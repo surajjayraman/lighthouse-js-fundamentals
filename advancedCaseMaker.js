@@ -1,28 +1,43 @@
 const makeCase = (input, style) => {
   let caseStr = '';
+  //check for typeof style object, string or array
   // Switch based on the casing style
-  switch(style){
-    case "camel":
-      caseStr = camelCase(input);
-      break;
-    case "pascal":
-      caseStr = pascalCase(input);
-      break;
-    case "snake":
-      caseStr = snakeCase(input);
-      break;
-    case "kebab":
-      caseStr = kebabCase(input);
-      break;
-    case "title":
-      caseStr = titleCase(input);
-      break;
-    case "vowel":
-      caseStr = vowelCase(input);
-      break;
-    case "consonant":
-      caseStr = consonantCase(input);
-      break;
+  if (typeof style === 'string'){
+    switch(style){
+      case "camel":
+        caseStr = camelCase(input);
+        break;
+      case "pascal":
+        caseStr = pascalCase(input);
+        break;
+      case "snake":
+        caseStr = snakeCase(input);
+        break;
+      case "kebab":
+        caseStr = kebabCase(input);
+        break;
+      case "title":
+        caseStr = titleCase(input);
+        break;
+      case "vowel":
+        caseStr = vowelCase(input);
+        break;
+      case "consonant":
+        caseStr = consonantCase(input);
+        break;
+      case "upper":
+        caseStr = upperCase(input);
+        break; 
+      case "lower":
+        caseStr = lowerCase(input);
+        break;
+    }
+
+  } else if (Array.isArray(style)){
+    caseStr = input;
+    for (let i = 0; i < style.length; i++){
+      caseStr = makeCase (caseStr, style[i]);
+    }
   }
   return caseStr;
 }
@@ -127,13 +142,21 @@ const consonantCase = (input) => {
   return splitStr.join("");
 };
 
+const upperCase = (input) => {
+  return input.toUpperCase();
+}
+
+const lowerCase = (input) => {
+  return input.toLowerCase();
+}
 
 
-//console.log(makeCase("this is a string", "camel"));
-//console.log(makeCase("this is a string", "pascal"));
-//console.log(makeCase("this is a string", "snake"));
-//console.log(makeCase("this is a string", "kebab"));
-//console.log(makeCase("this is a string", "title"));
-//console.log(makeCase("this is a string", "vowel"));
+
+console.log(makeCase("this is a string", "camel"));
+console.log(makeCase("this is a string", "pascal"));
+console.log(makeCase("this is a string", "snake"));
+console.log(makeCase("this is a string", "kebab"));
+console.log(makeCase("this is a string", "title"));
+console.log(makeCase("this is a string", "vowel"));
 console.log(makeCase("this is a string", "consonant"));
-//console.log(makeCase("this is a string", ["upper", "snake"]));
+console.log(makeCase("this is a string", ["upper", "snake"]));
